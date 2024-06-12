@@ -1,0 +1,37 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: demo
+  data:
+    mongodb:
+      uri: ${spring.data.mongodb.uri}
+
+logging:
+  level:
+    com:
+      sky:
+        mapper: debug
+        service: info
+        controller: info
+
+sky:
+  jwt:
+    # ??jwt??????????
+    admin-secret-key: ${sky.jwt.admin-secret-key}
+    # ??jwt????
+    admin-ttl: 72000000
+    # ?????????????
+    admin-token-name: ${sky.jwt.admin-token-name}
+    user-secret-key: ${sky.jwt.user-secret-key}
+    user-ttl: 72000000
+    user-token-name: authentication
+  line:
+    # ??line??????????
+    channel-secret: ${sky.line.channel-secret}
+    # ??line??????????
+    channel-access-token: ${sky.line.channel-access-token}
+    url: https://api.line.me/v2/bot/message/push
+  api:
+    # ??api??????????
+    key: ${sky.api.key}

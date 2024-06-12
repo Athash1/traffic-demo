@@ -1,0 +1,11 @@
+package com.trafficinfosystem.demo.constant;
+
+
+/**
+ * 密码常量
+ */
+public class PasswordConstant {
+    public static final String DEFAULT_PASSWORD = "123456";
+
+    public static final String DEFAULT_PASSWORD_USER = "123456789";
+}
