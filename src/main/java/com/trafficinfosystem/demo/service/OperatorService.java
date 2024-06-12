@@ -23,7 +23,7 @@ public class OperatorService {
     private String consumerKey;
 
     // 这个方法设置为每月的第一天自动执行
-    @Scheduled(cron = "0 0 0 1 * ?")  // 在每月的第一天午夜0点0分0秒执行
+    @Scheduled(cron = "0 0 0 1 * ?")  // 在每月的第一天午夜0点0分0秒执行1
     public void fetchAndStoreOperators() {
         String url = "https://api.odpt.org/api/v4/odpt:Operator?acl:consumerKey=";
         Operator[] operators = restTemplate.getForObject(url + consumerKey, Operator[].class);
