@@ -1,5 +1,6 @@
 package com.trafficinfosystem.demo.service;
 
+import com.trafficinfosystem.demo.apiManage.DynamicUpdateService;
 import com.trafficinfosystem.demo.constant.MessageConstant;
 import com.trafficinfosystem.demo.constant.PasswordConstant;
 import com.trafficinfosystem.demo.constant.StatusConstant;
@@ -7,12 +8,15 @@ import com.trafficinfosystem.demo.context.BaseContext;
 import com.trafficinfosystem.demo.dto.EmployeeDTO;
 import com.trafficinfosystem.demo.dto.EmployeeLoginDTO;
 import com.trafficinfosystem.demo.dto.EmployeePageQueryDTO;
+import com.trafficinfosystem.demo.dto.EmployeePasswordDTO;
 import com.trafficinfosystem.demo.entity.Employee;
 import com.trafficinfosystem.demo.exception.AccountLockedException;
 import com.trafficinfosystem.demo.exception.AccountNotFoundException;
 import com.trafficinfosystem.demo.exception.PasswordErrorException;
 import com.trafficinfosystem.demo.repositories.EmployeeRepository;
+import com.trafficinfosystem.demo.repositories.UserRepository;
 import com.trafficinfosystem.demo.result.PageResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,11 +32,11 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class EmployeeService {
 
     @Autowired
@@ -46,8 +50,11 @@ public class EmployeeService {
 
     @Autowired
     private MongoTemplate mongoTemplate;
+    @Autowired
+    private UserRepository userRepository;
+
     /**
-     * 员工登录
+     * employeeLogin
      *
      * @param employeeLoginDTO
      * @return
@@ -108,6 +115,7 @@ public class EmployeeService {
         //Set password, default password is 123456
         employee.setPassword(passwordEncoder.encode(PasswordConstant.DEFAULT_PASSWORD));
 
+
         employeeRepository.insert(employee);
     }
 
@@ -159,10 +167,29 @@ public class EmployeeService {
 //        employee.setUpdateTime(LocalDateTime.now());
 //        employee.setUpdateUser(BaseContext.getCurrentId());
 
-        // 显式更新时间和用户
+        // Explicitly update the time and user
         updates.put("updateTime", LocalDateTime.now());
         updates.put("updateUser", BaseContext.getCurrentId());
         dynamicUpdateService.updateFields(employeeDTO.getId(), updates, Employee.class);
     }
 
+    /**
+     * Update password
+     * @param employeePasswordDTO
+     */
+    public void updatePassword(EmployeePasswordDTO employeePasswordDTO) {
+        //Update your password
+        String newPassword = passwordEncoder.encode(employeePasswordDTO.getPassword());
+        Query query = new Query(Criteria.where("id").is(employeePasswordDTO.getId()));
+        Update update = new Update().set("password", newPassword);
+        mongoTemplate.updateFirst(query, update, Employee.class);
+    }
+
+    /**
+     * Delete employee information based on username
+     * @param username
+     */
+    public void deleteByUserName(String username) {
+        userRepository.deleteByUsername(username);
+    }
 }

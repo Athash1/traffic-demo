@@ -14,7 +14,7 @@ public class AutoFillMongoEventListener implements BeforeConvertCallback<Object>
     @Override
     public Object onBeforeConvert(Object entity, String collection) {
         LocalDateTime now = LocalDateTime.now();
-        Long currentId = BaseContext.getCurrentId(); // 确保能获取当前用户ID
+        String currentId = BaseContext.getCurrentId(); // 确保能获取当前用户ID
 
         if (entity instanceof Employee employee) {
             if (employee.getCreateTime() == null) {

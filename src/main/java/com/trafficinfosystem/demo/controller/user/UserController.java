@@ -78,7 +78,7 @@ public class UserController {
         return Result.success();
     }
 
-    @PostMapping
+    @PostMapping("/signUp")
     @ApiOperation("Add new user")
     public Result save(@RequestBody UserDTO userDTO) {
         log.info("Add new user: {}", userDTO);

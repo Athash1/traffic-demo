@@ -1,14 +1,13 @@
 package com.trafficinfosystem.demo.service;
 
+import com.trafficinfosystem.demo.apiManage.DynamicUpdateService;
 import com.trafficinfosystem.demo.constant.MessageConstant;
 import com.trafficinfosystem.demo.constant.PasswordConstant;
 import com.trafficinfosystem.demo.constant.StatusConstant;
 import com.trafficinfosystem.demo.dto.*;
-import com.trafficinfosystem.demo.entity.Employee;
 import com.trafficinfosystem.demo.entity.User;
 import com.trafficinfosystem.demo.exception.AccountLockedException;
 import com.trafficinfosystem.demo.exception.AccountNotFoundException;
-import com.trafficinfosystem.demo.exception.LoginFailedException;
 import com.trafficinfosystem.demo.exception.PasswordErrorException;
 import com.trafficinfosystem.demo.repositories.UserRepository;
 import com.trafficinfosystem.demo.result.PageResult;
@@ -22,10 +21,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 @Slf4j
@@ -115,6 +110,9 @@ public class UserService{
      * @return
      */
     public PageResult pageQuery(UserPageQueryDTO userPageQueryDTO) {
+        if (userPageQueryDTO.getName() == null) {
+            userPageQueryDTO.setName("");
+        }
         Pageable pageable = PageRequest.of(userPageQueryDTO.getPage() - 1, userPageQueryDTO.getPageSize(), Sort.by("createTime").descending());
         Page<User> page = userRepository.findByNameLike(userPageQueryDTO.getName(), pageable);
 

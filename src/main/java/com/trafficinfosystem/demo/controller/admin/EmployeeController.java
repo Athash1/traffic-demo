@@ -1,23 +1,19 @@
 package com.trafficinfosystem.demo.controller.admin;
 
+import com.trafficinfosystem.demo.apiManage.TrafficApiService;
 import com.trafficinfosystem.demo.constant.JwtClaimsConstant;
-import com.trafficinfosystem.demo.dto.EmployeeDTO;
-import com.trafficinfosystem.demo.dto.EmployeeLoginDTO;
-import com.trafficinfosystem.demo.dto.EmployeePageQueryDTO;
-import com.trafficinfosystem.demo.dto.UserPageQueryDTO;
+import com.trafficinfosystem.demo.dto.*;
 import com.trafficinfosystem.demo.entity.Employee;
 import com.trafficinfosystem.demo.properties.JwtProperties;
 import com.trafficinfosystem.demo.result.PageResult;
 import com.trafficinfosystem.demo.result.Result;
 import com.trafficinfosystem.demo.service.EmployeeService;
-import com.trafficinfosystem.demo.service.OperatorService;
 import com.trafficinfosystem.demo.service.UserService;
 import com.trafficinfosystem.demo.utils.JwtUtil;
 import com.trafficinfosystem.demo.vo.EmployeeLoginVO;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -37,6 +33,8 @@ public class EmployeeController {
     private JwtProperties jwtProperties;
     @Autowired
     private UserService userService;
+    @Autowired
+    private TrafficApiService trafficApiService;
 
     /**
      * Log in
@@ -49,6 +47,7 @@ public class EmployeeController {
         log.info("Employee login：{}", employeeLoginDTO);
 
         Employee employee = employeeService.login(employeeLoginDTO);
+
 
         //登录成功后，生成jwt令牌 (After successful login, generate jwt token)
         Map<String, Object> claims = new HashMap<>();
@@ -74,14 +73,17 @@ public class EmployeeController {
      * @return
      */
     @PostMapping("/logout")
-    @ApiOperation("employee exit")
     public Result<String> logout() {
         return Result.success();
     }
 
+    /**
+     * Add new employees
+     * @param employeeDTO
+     * @return
+     */
     @PostMapping
-    @ApiOperation("Add new employees")
-    public Result save(@RequestBody @Validated EmployeeDTO employeeDTO) {
+    public Result save(@RequestBody EmployeeDTO employeeDTO) {
         log.info("Add new employees: {}", employeeDTO);
         employeeService.save(employeeDTO);
         return Result.success();
@@ -93,7 +95,6 @@ public class EmployeeController {
      * @return
      */
     @GetMapping("/page")
-    @ApiOperation("Employee paging query")
     public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO) {
         log.info("Employee paging query, 参数为：{}", employeePageQueryDTO);
         PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
@@ -101,7 +102,7 @@ public class EmployeeController {
     }
 
     /**
-     * Employee paging query
+     * User paging query
      * @param userPageQueryDTO
      * @return
      */
@@ -112,6 +113,8 @@ public class EmployeeController {
         PageResult pageResult = userService.pageQuery(userPageQueryDTO);
         return Result.success(pageResult);
     }
+
+
 
     /**
      * Enable and disable employee accounts
@@ -150,6 +153,26 @@ public class EmployeeController {
         employeeService.update(employeeDTO);
         return Result.success();
     }
+    /**
+     * Edit employee password
+     * @return
+     */
+    @PostMapping("/password")
+    public Result updatePassword(@RequestBody EmployeePasswordDTO employeePasswordDTO){
+        log.info("Edit employee password: {}", employeePasswordDTO);
+        employeeService.updatePassword(employeePasswordDTO);
+        return Result.success();
+    }
 
-
+    /**
+     * Delete employee information based on username
+     * @param username
+     * @return
+     */
+    @DeleteMapping("{username}")
+    public Result delete(@PathVariable String username){
+        log.info("Delete employee information based on username: {}", username);
+        employeeService.deleteByUserName(username);
+        return Result.success();
+    }
 }

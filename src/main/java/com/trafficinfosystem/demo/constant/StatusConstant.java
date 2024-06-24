@@ -1,7 +1,7 @@
 package com.trafficinfosystem.demo.constant;
 
 /**
- * 状态常量，启用或者禁用
+ * State constants, enabled or disabled
  */
 public class StatusConstant {
 

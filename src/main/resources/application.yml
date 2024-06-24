@@ -26,12 +26,6 @@ sky:
     user-secret-key: ${sky.jwt.user-secret-key}
     user-ttl: 72000000
     user-token-name: authentication
-  line:
-    # ??line??????????
-    channel-secret: ${sky.line.channel-secret}
-    # ??line??????????
-    channel-access-token: ${sky.line.channel-access-token}
-    url: https://api.line.me/v2/bot/message/push
   api:
     # ??api??????????
     key: ${sky.api.key}

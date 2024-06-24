@@ -13,6 +13,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * Employee entity class
+
+ */
 @Data
 @Builder
 @NoArgsConstructor
@@ -23,19 +27,20 @@ public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     private String id;
-    @NotBlank(message = "用户名不能为空")
-    @Indexed(unique = true)
+
     private String username;
-    @NotBlank(message = "姓名不能为空")
+
     private String name;
-    @NotBlank(message = "密码不能为空")
+
     private String password;
-    @NotBlank(message = "手机号不能为空")
+
     private String phone;
-    @NotBlank(message = "性别不能为空")
+
     private String sex;
-    @NotBlank(message = "状态不能为空")//状态: 0:禁用 1:启用
+    //状态: 0:禁用 1:启用
     private Integer status;
+
+    private String avatar;
 
     //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
@@ -43,8 +48,8 @@ public class Employee implements Serializable {
     //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
-    private Long createUser;
+    private String createUser;
 
-    private Long updateUser;
+    private String updateUser;
 
 }

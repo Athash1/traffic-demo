@@ -1,7 +1,7 @@
 package com.trafficinfosystem.demo.constant;
 
 /**
- * 信息提示常量类
+ * Infotip constant class
  */
 public class MessageConstant {
 
@@ -24,5 +24,6 @@ public class MessageConstant {
     public static final String DISH_BE_RELATED_BY_SETMEAL = "The current dish is associated with a set meal and cannot be deleted.";
     public static final String ORDER_STATUS_ERROR = "Order status error";
     public static final String ORDER_NOT_FOUND = "Order does not exist";
-
+    public static final String OPERATOR_NOT_FOUND = "No operators found matching the criteria.";
+    public static final String INVALID_RESPONSE = "Invalid response object.";
 }

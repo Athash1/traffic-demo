@@ -22,24 +22,20 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     private String id;
-    @NotBlank(message = "姓名不能为空")
     //姓名
     private String name;
-    @NotBlank(message = "用户名不能为空")
     //用户名
     private String username;
-    @NotBlank(message = "密码不能为空")
     //密码
     private String password;
-    @NotBlank(message = "手机号不能为空")
     //手机号
     private String phone;
-    @NotBlank(message = "性别不能为空")
     //性别 0 女 1 男
     private String sex;
-
-    @NotBlank(message = "状态不能为空")//状态: 0:禁用 1:启用
+    //状态: 0:禁用 1:启用
     private Integer status;
+
+    private String avatar;
 
     //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
@@ -47,17 +43,13 @@ public class User implements Serializable {
     //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
-    private Long createUser;
+    private String createUser;
 
-    private Long updateUser;
+    private String updateUser;
 
-    //用户位置，格式为"经度,纬度"
-    private String location;
+    private LocalDateTime ReminderTime;
 
-    //位置的更新时间
-    private LocalDateTime locationUpdateTime;
-
-    //用户总的服务使用次数
+    //The total number of times a user used the service
     private Long totalServiceUsage = 0L;
 
     public void incrementServiceUsage() {

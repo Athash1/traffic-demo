@@ -1,4 +1,4 @@
-package com.trafficinfosystem.demo.service;
+package com.trafficinfosystem.demo.apiManage;
 
 import com.trafficinfosystem.demo.entity.DatabaseSequence;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +12,21 @@ import static org.springframework.data.mongodb.core.FindAndModifyOptions.options
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
+/**
+ * Sequence number generator service
+
+ */
 @Service
 public class SequenceGeneratorService {
 
     @Autowired
     private MongoOperations mongoOperations;
 
+    /**
+     * Generate sequence number (auto-increment)
+     * @param seqName
+     * @return
+     */
     public long generateSequence(String seqName) {
         DatabaseSequence counter = mongoOperations.findAndModify(
                 query(where("_id").is(seqName)),
