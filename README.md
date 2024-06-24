@@ -1,6 +1,8 @@
 # Traffic Info System
 
-This is a traffic information system project, developed using Java and Spring Boot.
+The `Traffic Info System` is a public transportation information system developed using Java and Spring Boot. The primary goal of this project is to provide a convenient way for users to access real-time public transportation operation information, including but not limited to the status of trains, buses, and subways.
+
+**API**: This system utilizes the [ODPT (Open Data for Public Transportation in Tokyo)](https://developer.odpt.org/ja/info) API to fetch open data for public transportation in the Tokyo area. 
 
 ## Backend Technology Stack
 
