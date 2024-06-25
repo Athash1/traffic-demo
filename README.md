@@ -1,4 +1,4 @@
-# Traffic Info System
+![6d8d6c0544da928613179332b24d82b7](https://github.com/Athash1/traffic-demo/assets/125422104/ee09e65e-c910-4c14-b413-0a336f14fe62)# Traffic Info System
 
 The `Traffic Info System` is a public transportation information system developed using Java and Spring Boot. The primary goal of this project is to provide a convenient way for users to access real-time public transportation operation information, including but not limited to the status of trains, buses, and subways.
 
@@ -14,3 +14,15 @@ The `Traffic Info System` is a public transportation information system develope
 6. JWT (JSON Web Token): A way to transmit claims as a JSON object over the network. These claims can be used to verify user identity.
 7. Lombok: A Java library that can automatically insert into editors and build tools, providing a way to make Java code more concise, especially for simple Java Beans.
 8. SLF4J (Simple Logging Facade for Java): A simple unified interface provided for various logging APIs, allowing end users to use their desired logging APIs implementation when deploying applications.
+
+## Features
+
+1. Encrypt user passwords before saving them in the database to enhance security.
+   - We use a robust encryption algorithm to protect user passwords. When a user registers or changes their password, we first encrypt the password, then save the encrypted password in the database. This way, even if the database is compromised, attackers cannot directly access the user's original password, thereby enhancing system security.
+   - ![6d8d6c0544da928613179332b24d82b7](https://github.com/Athash1/traffic-demo/assets/125422104/7a339661-69f3-43b2-9b24-17fe23cf89a0)
+
+
+2. Track the number of times a user uses the service and generate charts in MongoDB Charts.
+   - We record information every time a user uses the service and save this information in the database. We then use MongoDB Charts to generate charts from this data. These charts clearly show the frequency and timing of service usage by users. This is very helpful for understanding user habits and optimizing the way we provide services.
+   - ![f8814326505aadd6c77070a61cbbf9ed](https://github.com/Athash1/traffic-demo/assets/125422104/8545512d-508e-4e08-8bc4-059c099044d6)
+
