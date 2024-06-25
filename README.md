@@ -1,4 +1,4 @@
-![6d8d6c0544da928613179332b24d82b7](https://github.com/Athash1/traffic-demo/assets/125422104/ee09e65e-c910-4c14-b413-0a336f14fe62)# Traffic Info System
+# Traffic Info System
 
 The `Traffic Info System` is a public transportation information system developed using Java and Spring Boot. The primary goal of this project is to provide a convenient way for users to access real-time public transportation operation information, including but not limited to the status of trains, buses, and subways.
 
